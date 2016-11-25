@@ -1,6 +1,9 @@
-from setuptools import setup
+import os
+import setuptools
 
-setup(
+os.environ["STATIC_DEPS"] = "true"
+
+setuptools.setup(
     name="peepdf",
     version="0.3.3",
     author="Jose Miguel Esparza",
