@@ -3251,8 +3251,9 @@ class PDFObjectStream (PDFStream):
                 numbers = re.findall('\d{1,10}', offsetsSection)
                 if numbers != [] and len(numbers) % 2 == 0:
                     for i in range(0, len(numbers), 2):
-                        offset = numbers[i+1]
-                        ret = PDFParser.readObject(objectsSection[offset:])
+                        id = int(numbers[i])
+                        offset = int(numbers[i+1])
+                        ret = PDFParser().readObject(objectsSection[offset:])
                         if ret[0] == -1:
                             if isForceMode:
                                 object = None
@@ -3261,7 +3262,8 @@ class PDFObjectStream (PDFStream):
                                 return ret
                         else:
                             object = ret[1]
-                        self.compressedObjectsDict[numbers[i]] = [offset, object]
+                        self.compressedObjectsDict[id] = [offset, object]
+                        self.indexes.append(id)
                 else:
                     errorMessage = 'Missing offsets in object stream'
                     if isForceMode:
