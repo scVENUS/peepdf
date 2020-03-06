@@ -8153,7 +8153,6 @@ class PDFParser:
 
         newString = string[self.charCounter:]
 
-        self.charCounter = 0
         index = newString.find(symbol)
         if index == -1:
             errorMessage = 'Symbol "'+symbol+'" not found'
