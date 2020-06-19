@@ -8003,6 +8003,7 @@ class PDFParser:
             errorMessage = 'EOF while looking for symbol "'+symbol+'"'
             pdfFile.addError(errorMessage)
             return (-1, errorMessage)
+        self.readSpaces(string)
         while string[self.charCounter] == '%':
             ret = self.readUntilEndOfLine(string)
             if ret[0] == -1:
