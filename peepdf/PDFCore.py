@@ -1217,6 +1217,14 @@ class PDFArray(PDFObject):
         ret = self.update()
         return ret
 
+    def getJSCode(self):
+        '''
+            Gets the Javascript code of the object
+
+            @return: An array of Javascript code sections
+        '''
+        return self.JSCode
+
 
 class PDFDictionary(PDFObject):
     def __init__(self, rawContent='', elements={}, rawNames={}):
