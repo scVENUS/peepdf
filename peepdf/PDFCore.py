@@ -7857,6 +7857,11 @@ class PDFParser:
         pdfObject = None
         oldCounter = self.charCounter
         self.charCounter = 0
+        # skip leading whitespace in case of sloppy reference offsets
+        self.readSpaces(content)
+        if self.charCounter > 0:
+            content = content[self.charCounter:]
+            self.charCounter = 0
         if objectType is not None:
             objectsTypeArray = [self.delimiters[i][2] for i in range(len(self.delimiters))]
             index = objectsTypeArray.index(objectType)
@@ -8011,7 +8016,6 @@ class PDFParser:
             errorMessage = 'EOF while looking for symbol "'+symbol+'"'
             pdfFile.addError(errorMessage)
             return (-1, errorMessage)
-        self.readSpaces(string)
         while string[self.charCounter] == '%':
             ret = self.readUntilEndOfLine(string)
             if ret[0] == -1:
